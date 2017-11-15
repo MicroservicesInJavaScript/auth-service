@@ -1,0 +1,23 @@
+version: "2"
+services:
+  app:
+    container_name: auth_service_app
+    restart: always
+    build: .
+    ports:
+      - "3002:3002"
+    links:
+      - db
+  db:
+    image: mongo:3.2.10
+    container_name: auth_service_db
+    ports:
+      - "27018:27017"
+  db-seed:
+    image: mongo:3.2.10
+    links:
+      - db
+    volumes:
+      - ./seed_data:/seed_data
+    command:
+      'bash -c "mongoimport --host db --db auth_service --collection auth --type json --file /seed_data/auth.json --jsonArray"'
