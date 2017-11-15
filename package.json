@@ -1,0 +1,40 @@
+{
+  "scripts": {
+    "dev": "yarn run doc && nodemon src/index.js",
+    "doc": "jsdoc -c .jsdoc src/*",
+    "build": "docker-compose up -d --build",
+    "start": "node src/index.js",
+    "lint-check": "eslint --print-config .eslintrc.js | eslint-config-prettier-check",
+    "lint": "eslint --ext js ./src",
+    "lint-fix": "yarn run lint -- --fix",
+    "test": "jest",
+    "teardown": "docker-compose down"
+  },
+  "pre-commit": [
+    "lint-fix",
+    "test"
+  ],
+  "dependencies": {
+    "dotenv": "^4.0.0",
+    "body-parser": "^1.18.2",
+    "express": "^4.16.2",
+    "mongodb": "^2.2.33",
+    "morgan": "^1.9.0",
+    "pino": "^4.10.0",
+    "rotating-file-stream": "^1.3.4"
+  },
+  "devDependencies": {
+    "eslint": "^4.11.0",
+    "eslint-config-prettier": "^2.7.0",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-node": "^5.2.1",
+    "eslint-plugin-prettier": "^2.3.1",
+    "eslint-plugin-promise": "^3.6.0",
+    "prettier": "^1.8.2",
+    "jest": "^21.2.1",
+    "mongo-mock": "^2.7.0",
+    "jsdoc": "^3.5.5",
+    "nodemon": "^1.12.1",
+    "pre-commit": "^1.2.2"
+  }
+}
